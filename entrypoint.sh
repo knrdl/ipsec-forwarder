@@ -9,7 +9,7 @@ set -euo pipefail
 : ${VPNC_PASSWORD?env var is not set}
 
 vpnc --no-detach --gateway "$VPNC_GATEWAY" --id "$VPNC_ID" --secret "$VPNC_SECRET" --username "$VPNC_USERNAME" \
-     --password "$VPNC_PASSWORD" --ifmode tap --non-inter --dpd-idle 0 --debug 1 &
+     --password "$VPNC_PASSWORD" --ifmode tap --non-inter --dpd-idle 0 &
 
 : ${FORWARDS?env var is not set}
 
@@ -28,11 +28,11 @@ do
     : ${REMOTE_IP?bad FORWARDS env var}
     : ${REMOTE_PORT?bad FORWARDS env var}
 
-    echo "Forwarding $REMOTE_IP:$REMOTE_PORT (remove) to port $LOCAL_PORT (local)"
+    echo "Forwarding $REMOTE_IP:$REMOTE_PORT (remote) to port $LOCAL_PORT (local)"
     socat "TCP-LISTEN:$LOCAL_PORT,bind=0.0.0.0,reuseaddr,fork" "TCP:$REMOTE_IP:$REMOTE_PORT" &
 done
 
-# Wait for any process (socats or vpnc) to exit
+# Wait for any process (socat cmds or vpnc) to exit
 wait -n
 
 # Exit with status of process that exited first
