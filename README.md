@@ -10,8 +10,8 @@ a[your docker container<br><small>wants to access <b>192.168.123.42:80</b></smal
 b[ipsec-forwarder<br><small>listens on port <b>9000</b> and <br>forwards requests to <b>192.168.123.42:80</b></small>]
 c[Target Host<br><small>IP: <b>192.168.123.42</b></small><br><small>Provides a service on port <b>80</b></small>]
 
-a-->|docker network| b
-b-->|IPSec Tunnel| c
+a-->|docker<br>network| b
+b-->|IPSec<br>Tunnel| c
 ```
 
 # Deployment
