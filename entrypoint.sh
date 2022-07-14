@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euxo pipefail
+set -euo pipefail
 
 : ${VPNC_GATEWAY?env var is not set}
 : ${VPNC_ID?env var is not set}
@@ -13,7 +13,7 @@ vpnc --no-detach --gateway "$VPNC_GATEWAY" --id "$VPNC_ID" --secret "$VPNC_SECRE
 
 : ${FORWARDS?env var is not set}
 
-readarray -td, FWDS <<< "FORWARDS,"
+readarray -td, FWDS <<< "$FORWARDS,"
 unset 'FWDS[-1]'
 
 for fwd in "${FWDS[@]}"
