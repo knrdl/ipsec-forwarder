@@ -9,7 +9,7 @@ set -euo pipefail
 : ${VPNC_PASSWORD?env var is not set}
 
 vpnc --no-detach --gateway "$VPNC_GATEWAY" --id "$VPNC_ID" --secret "$VPNC_SECRET" --username "$VPNC_USERNAME" \
-     --password "$VPNC_PASSWORD" --ifmode tap --non-inter --dpd-idle 0 &
+     --password "$VPNC_PASSWORD" --ifmode tap --non-inter --dpd-idle 10 &
 
 : ${FORWARDS?env var is not set}
 
