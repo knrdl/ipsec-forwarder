@@ -46,5 +46,4 @@ services:
 
 networks:
   vpn_net:
-    internal: true
 ```
