@@ -31,7 +31,8 @@ services:
       VPNC_SECRET: Group password
       VPNC_USERNAME: XAUTH username
       VPNC_PASSWORD: XAUTH password
-      FORWARDS: 9000:192.168.123.42:80,9001:192.168.123.42:81 # example with 2 forwards
+      FORWARDS: 9000:192.168.123.42:80,9001:192.168.123.42:81
+      # FORWARDS is a list of <local port>:<remote ip>:<remote port>
     networks:
       - vpn_net
     cap_add:
