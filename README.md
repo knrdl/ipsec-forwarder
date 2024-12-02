@@ -6,11 +6,18 @@ Expose servers behind a VPN connection to a local Docker network
 
 ```mermaid
 graph TB
-a[<b>your docker container</b><br>wants to access <i>192.168.123.42:80</i>, therefore requests <i>ipsec-forwarder:9000</i>]
+a[<b>your docker container</b><br>wants to access <i>192.168.123.42:80</i> therefore requests <i>ipsec-forwarder:9000</i>]
 b["<b>ipsec-forwarder (docker container)</b><br>listens on port <i>9000</i> and forwards requests to <i>192.168.123.42:80</i>"]
-c[<b>Target Host</b><br>IP: <i>192.168.123.42</i>, provides a service on port <i>80</i>]
+c[<b>Target Host</b><br>IP: <i>192.168.123.42</i> provides a service on port <i>80</i>]
 
+subgraph Local machine
 a-->|docker network| b
+end
+
+subgraph Remote machine
+c
+end
+
 b-->|IPSec Tunnel| c
 ```
 
@@ -37,6 +44,8 @@ services:
       - vpn_net
     cap_add:
       - NET_ADMIN  # necessary to create tunneling device
+    devices:
+      - /dev/net/tun:/dev/net/tun
 
   your-container:
     image: curlimages/curl
